@@ -1,0 +1,871 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Structures de données </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="9706e703-61bc-4855-9518-2f6cb231997b" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🏗️</span></div><h1 class="page-title">Structures de données </h1><p class="page-description"></p></header><div class="page-body"><nav id="10bdf055-a643-80bb-9eeb-f79cb14a9042" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#bb6ef520-484a-4fed-950f-db7dbd38ba41">Présentation </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#37905a44-f6ab-46be-acad-f5d83d4c9bdb">Structures linéaire </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0fd14279-b8bf-4f4f-b50e-ab6d425aa42d">Liste</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#23f853f1-5591-4beb-a643-0165135bd0c9">Pile</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9cf2dcb2-2327-4b8a-8076-c8a8f13a6a88">File</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#104df055-a643-8065-9b71-e8fc99ac816b">Tableaux</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#106df055-a643-809e-b7d5-c98ba886bd0b">Liste chaînées</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6eed17f4-9fd3-4674-b392-e88fbb4d8eb5">Structures par clés ou dictionnaires </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f1215759-eea8-4d3c-8c0c-b9a8301c59f1"><mark class="highlight-red"><strong>Opération possible sur un dictionnaire :</strong></mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#03d91451-0872-4b69-addb-f464664ad114">Structure hiérarchique </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#10ddf055-a643-8044-a534-d1657a047107">Les arbres </a></div></nav><h1 id="bb6ef520-484a-4fed-950f-db7dbd38ba41" class="">Présentation </h1><p id="f0b4bb87-9e52-4e4f-9786-79ea2d62e5e9" class="">En première, plusieurs types de données (variables):</p><ul id="fd564107-3f87-4d15-b569-41f257ed1c7d" class="bulleted-list"><li style="list-style-type:disc">Integer ou float</li></ul><ul id="df16af4e-47da-474c-b20e-e52d221bddc3" class="bulleted-list"><li style="list-style-type:disc">Bouléen (vrai ou faux, 0 et 1)</li></ul><ul id="62dd257b-50d2-429c-b9c1-df100e752a27" class="bulleted-list"><li style="list-style-type:disc">String (chaîne de caractères) </li></ul><p id="18b38adf-6e02-42b1-ba3b-e1a484965e49" class="">Variable primaire (existent dans tous les langages de programmation)</p><p id="e3279ff0-4b35-4201-90f4-046c0c3c1a7e" class="">Il existe d&#x27;autres types de variables : <span style="border-bottom:0.05em solid">Les structures de données</span></p><ul id="df3401e8-574b-4a2e-b516-077691f0a8dc" class="bulleted-list"><li style="list-style-type:disc">Structures linéaires (liste, piles, fils…)</li></ul><ul id="09977cc9-fa81-4fb2-9b6c-4dd6b032f337" class="bulleted-list"><li style="list-style-type:disc">Structure à accès par clés (dictionnaire)</li></ul><ul id="be91b3d6-a24b-43e8-a6cf-6ef26fa6a0b3" class="bulleted-list"><li style="list-style-type:disc">Structure hiérarchique (arbres)</li></ul><ul id="d016d7f7-d414-4c5c-ab48-8ee5cf8e45c5" class="bulleted-list"><li style="list-style-type:disc">Structure relationnelle (graphe)</li></ul><h1 id="37905a44-f6ab-46be-acad-f5d83d4c9bdb" class="">Structures linéaire </h1><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Liste</summary></details><p id="cca518da-d3c1-4254-ad30-1b4cc560528d" class="">Une liste est une structure de donnée à accès <span style="border-bottom:0.05em solid">séquentiel</span> (les données sont accessibles avec un indice de rang)</p><p id="2b4f5e45-f9cc-467b-b441-a9f9ac57a11c" class="">Exemple :</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8a9c5d2d-e0c8-4322-8404-b7e004f974b0" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">lst = [12, &quot;a&quot;, &quot;b&quot;, true, 122, 3]
+tupl = (12, &quot;a&quot;, &quot;b&quot;, true, 122, 3)</code></pre><p id="2ad0f1e3-4fc9-413c-a366-35bcd9d8bf04" class="">Rappel : La taille d&#x27;un tuple <em>n&#x27;est pas</em> modifiable </p><p id="9e9497d0-9abd-419d-ba8f-c6a4323ff80c" class=""><em><strong>Problématique : Que peut-on faire sur une liste ?</strong></em></p><ul id="9de9f466-7276-4ceb-80df-8cde44fe346f" class="bulleted-list"><li style="list-style-type:disc">Ajouter une variable</li></ul><ul id="f0458ddc-f6fc-4327-ac14-b1977c8d2793" class="bulleted-list"><li style="list-style-type:disc">Échanger une variable</li></ul><ul id="f4c5942b-5a12-4bec-92ba-902ae1816518" class="bulleted-list"><li style="list-style-type:disc">Supprimer une variable</li></ul><ul id="4710e693-1825-44d9-a3de-ef7003bbe914" class="bulleted-list"><li style="list-style-type:disc">Compter les éléments</li></ul><ul id="fed2dc57-04be-4da4-8be1-bc034f799465" class="bulleted-list"><li style="list-style-type:disc">Vider la liste</li></ul><ul id="5c870ab3-7594-40de-b013-c77d9081cae4" class="bulleted-list"><li style="list-style-type:disc">Créer la liste</li></ul><p id="a8e9344b-4dbc-474a-90ab-ed0611bafae6" class="">En pratique :</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3e35ef1a-af61-49c8-8c63-c43b98e2bf23" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">createList()
+size(L)
+deleteHead(L)
+emptyList(L)
+isEmpty(L)
+addHead(L)
+exchange(L, i1, i2)
+
+L = createEmpty() =&gt; []
+isEmpty(L) =&gt; true
+addHead(L, &quot;B&quot;) =&gt; [&quot;B&quot;,]
+isEmpty(L) =&gt; false
+addHead(L, &quot;X&quot;) =&gt; [&quot;B&quot;, &quot;X&quot;,]
+insert(L, &quot;R&quot;, 1) =&gt; [&quot;B&quot;, &quot;R&quot;, &quot;X&quot;,]
+deleteHead(L) =&gt; [&quot;B&quot;, &quot;R&quot;]
+addHead(L, &quot;O&quot;) =&gt; [&quot;B&quot;, &quot;R&quot;, &quot;O&quot;,]
+insert(L, &quot;V&quot;, 2) =&gt; [&quot;B&quot;, &quot;R&quot;, &quot;V&quot;, &quot;O&quot;,]
+insert(L, &quot;A&quot;, 2) =&gt; [&quot;B&quot;, &quot;R&quot;, &quot;A&quot;, &quot;V&quot;, &quot;O&quot;,]</code></pre><p id="f93f6fe2-4f08-4e3b-a1ee-2d3cce475d44" class="">Fonction taille :</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="57f590b3-317d-4492-aab2-22f628b357c3" class="code"><code class="language-Python">def taille(L):
+	if estVide(L) == true:
+		return 0
+	else:
+		i = 0
+		for j in L:
+			i = i + 1
+		return i</code></pre><p id="d0c02022-1410-4768-bf15-5995c314c63a" class="">Fonction supprimer en-tête :</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="589a17c8-3aae-4137-97ef-e8e1d28e9c24" class="code"><code class="language-Python">si estVide est vrai
+	retourne &quot;Liste vide&quot;
+fin si
+sinon
+	nouvelle_liste = []
+	pour i de taille(liste) - 1 
+		nouvelle_liste[i] = liste[i]
+	retourne nouvelle_liste
+fin sinon
+
+def deleteHead(lst):
+	assert isEmpty(lst) == False, &quot;La liste est vide&quot;
+	del lst[-1]</code></pre><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Pile</summary><div class="indented"><p id="90254147-8075-42b4-a901-17d3a2fa4cb5" class="">Les piles fonctionnent comme des listes mais avec des propriétés particulières. Les piles sont bases sur le principe LIFO (Last In First Out) =/= FIFO (First In First Out). Dans une pile on ne peut manipuler que le dernier élément introduit. </p><p id="a8b0ef2e-6d09-4518-97ad-65a8503c7f66" class="">Exemple : </p><ul id="9cebfdaa-ef73-4394-8578-c9eef41c9eca" class="bulleted-list"><li style="list-style-type:disc">Les piles d’assiettes </li></ul><ul id="46878b77-a301-4028-8422-e2792be20e4b" class="bulleted-list"><li style="list-style-type:disc">Bravo écrit sous la forme d’une pile </li></ul><p id="85925e99-1637-45cd-93f4-bdfb4b6a128f" class="">Que peut-on faire sur une pile ?</p><ul id="e177ec1e-4d50-4bb0-b583-93a62bc2ed93" class="bulleted-list"><li style="list-style-type:disc">supprimerTête(L) ou depiler(L)</li></ul><ul id="685b5262-27a2-46d2-9518-ac71fccc74dd" class="bulleted-list"><li style="list-style-type:disc">ajouterTête(L, x) ou empiler(L)</li></ul><ul id="17358a9b-8166-408c-808c-1c165bb5e2cc" class="bulleted-list"><li style="list-style-type:disc">créerPile()</li></ul><ul id="b3883d9b-c529-4fd9-aeec-21683069b4b6" class="bulleted-list"><li style="list-style-type:disc">taillePile(L)</li></ul><ul id="bf360b28-0c7e-4289-81b4-e6011206a994" class="bulleted-list"><li style="list-style-type:disc">videPile(L)</li></ul><ul id="2b8c79a8-7355-4f7f-8611-a37c9bd3687a" class="bulleted-list"><li style="list-style-type:disc">estVide(L)</li></ul></div></details><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">File</summary><div class="indented"><p id="7dc1a23f-9577-41bd-bdff-9da47eb7dac1" class="">FIFO (First In First Out)</p><p id="24f99515-55b4-4d70-a3b7-a549cfa1e427" class="">Exemple :</p><ul id="99cf1eeb-f38f-437b-989c-6460b1cc8cdb" class="bulleted-list"><li style="list-style-type:disc">File d&#x27;attente </li></ul><p id="b0298f93-c51e-41b3-83ae-6aa3103ed2de" class="">← ← ←</p><p id="c667fdc7-2193-474a-aac4-5870b77d7acf" class="">______________________________________________________________</p><p id="a616a0b5-633e-4cdf-bfc5-896963d06467" class="">“B”, “R”, ‘A”, “V”, “O”</p><p id="de49c75e-bd2e-49a2-beba-12ae6a2712dc" class="">______________________________________________________________</p><p id="70873529-fb70-4823-890c-9500a93ac74a" class="">Que peut-on faire sur une file ?</p><ul id="2fdb691d-b9ff-4509-9db7-be4a6c1f4be9" class="bulleted-list"><li style="list-style-type:disc">créerFile(F)</li></ul><ul id="b8db037f-da66-4bcf-b682-d9c357c62e67" class="bulleted-list"><li style="list-style-type:disc">ajoute(F, x) ou enfiler(F, x)</li></ul><ul id="809b5175-96ef-4959-924b-88a7060344e4" class="bulleted-list"><li style="list-style-type:disc">supprimer(F) ou defiler(F)</li></ul><ul id="ab737883-e813-4b8f-b53a-18739be95c4f" class="bulleted-list"><li style="list-style-type:disc">taille(F)</li></ul><ul id="ead67b60-c17f-48f4-8c81-fdb602500d1f" class="bulleted-list"><li style="list-style-type:disc">videFile(F)</li></ul><ul id="0ad4434f-8132-43c9-95f9-40104b0bfb8f" class="bulleted-list"><li style="list-style-type:disc">estVide(F) </li></ul></div></details><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="b032d177-9c76-46ab-94d1-eef2b107dd24" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def empiler(P, x):
+	return P.append(x)
+
+def enfiler(F, x):
+	return F.append(x)
+	
+def depiler(P):
+	return P.pop()
+
+def defiler(F):
+	return del F[0]
+	
+def videPile(P):
+	return P = []
+
+def videFile(F):
+	return F = []</code></pre><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Tableaux</summary><div class="indented"><p id="104df055-a643-804a-b4c8-cc191107aa34" class="">Un tableau est une liste de liste</p><p id="104df055-a643-8011-9ae0-cd5184d221ba" class="">Exemple : </p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="7daea053-9112-4ec5-9093-64e13aaf135c" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">T = [[1, 2, 3], [4, 5, 6]]</code></pre><p id="7ac99a51-073b-4521-b45f-8b949d607900" class="">Remarque : Une liste est un tableau à une ligne</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="104df055-a643-8075-bc1b-db5d1e9c3fd1" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def inserer(L, x, i):
+	if len(L) == 0:
+		return &quot;Liste vide&quot;
+	else:
+		L.append(0)
+		N = len(L)
+		for j in range(N + 1, I, -1):
+			L[j] = L[j - !]
+		L[i] = x
+		return L
+		
+def renvTab(T):
+	n = len(T)
+	m = len(T[0])
+	new = [[0]*n for i in range(m)]
+	for i in range(m):
+		for j in range(n):
+			new[i][j] = T[j][i]
+	return new
+</code></pre></div></details><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Liste chaînées</summary><div class="indented"><p id="c51feadd-30d9-405b-9628-472d50a7a210" class=""> Dans une liste chaînée, à chaque élément de la liste on associe deux renseignements, représentées par 2 cases:</p><ul id="106df055-a643-80b9-afdc-fd9a97f9e172" class="bulleted-list"><li style="list-style-type:disc">La première case contient l&#x27;élément, sa valeur </li></ul><ul id="106df055-a643-802f-8d77-e04dbe4a2012" class="bulleted-list"><li style="list-style-type:disc">La deuxième contient l&#x27;adresse mémoire de l&#x27;élément suivant, un renseignement qui permet de le retrouver (le pointeur) </li></ul></div></details><h1 id="6eed17f4-9fd3-4674-b392-e88fbb4d8eb5" class="">Structures par clés ou dictionnaires </h1><p id="5419224e-5ebf-42cc-9838-63c0e60b3c88" class="">Structure proche d&#x27;une liste </p><p id="e01883bd-848a-4367-8576-8de6440fc1ee" class="">Dans un dictionnaire il n&#x27;y a pas d&#x27;indice, on ne peut pas accéder à un élément par sa position, il n&#x27;y a pas de notion d&#x27;ordre. Les éléments sont ordonnés par un système clé-valeur</p><h3 id="f1215759-eea8-4d3c-8c0c-b9a8301c59f1" class=""><mark class="highlight-red"><strong>Opération possible sur un dictionnaire :</strong></mark></h3><ul id="10bdf055-a643-80f1-98d2-d540e29c22e0" class="bulleted-list"><li style="list-style-type:disc">Ajouter (d,k,v)</li></ul><ul id="10bdf055-a643-80f4-890b-f1f29f6343d6" class="bulleted-list"><li style="list-style-type:disc">Creerdico()</li></ul><ul id="10bdf055-a643-8062-88aa-d81dea408904" class="bulleted-list"><li style="list-style-type:disc">Estvide(d)</li></ul><ul id="10bdf055-a643-805c-8439-fa8c4d075229" class="bulleted-list"><li style="list-style-type:disc">supprimer(d,k,v)</li></ul><ul id="a44de41d-d030-43e1-ba9d-443ad5910c02" class="bulleted-list"><li style="list-style-type:disc">Viderdico(d)</li></ul><ul id="10bdf055-a643-8006-9c9f-e5ea59778b16" class="bulleted-list"><li style="list-style-type:disc">tailledico(d)</li></ul><p id="10bdf055-a643-80b0-b748-dd7012b9e326" class="">recherchedico(d,k):</p><p id="10bdf055-a643-80cb-a61d-e1484ec44cd8" class=""><mark class="highlight-teal">Exemple</mark><div class="indented"><p id="10bdf055-a643-800a-85b3-dc0265f8d872" class="">Soit le dictionnaire : <mark class="highlight-red_background">D = {’prenom’:’Kevin’, ‘nom’:’Durand’,’age’:&#x27;19’}</mark></p><p id="5fb1438e-3ef0-43c9-b876-e522ae641264" class="">modifier(D,’nom’,’Dupont’)<div class="indented"><p id="10bdf055-a643-80f6-932b-eed4a6633f23" class="">→D = {’nom’:’Dupont’,’prenom’:’Kevin’,’age’:&#x27;19’}</p></div></p></div></p><p id="5c954862-f4ac-40e8-9212-199038049a08" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10bdf055-a643-8080-a01e-f5f645a5b8ee" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def creerdico();
+		D = {}
+		return D</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10bdf055-a643-80b2-aa98-c9a71d600acb" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def modifdico(d, k, v):
+    if k in d:
+        d[v] = k
+    else:
+        print(f&quot;La clé &#x27;{k}&#x27; n&#x27;existe pas dans le dictionnaire.&quot;)
+    return d</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10bdf055-a643-809d-8dc1-e5e8d364f49b" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def tailledico(d):
+		len(d)</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10bdf055-a643-80f5-9606-d837a573f05e" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def Estvide(d):
+		If len(d)==0:
+			return True
+	  else;
+		  return False</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10bdf055-a643-805a-ad05-e188a7eb7676" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def supprimerdico(d,k):
+    del d[k]</code></pre><p id="10bdf055-a643-8095-bbb6-dc149d7c04d3" class=""><mark class="highlight-purple"><strong>Remarques :</strong></mark></p><p id="10bdf055-a643-807b-b49c-d6c121533707" class="">On peut faire des boucles dans un dictionnaire</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10bdf055-a643-80fb-8877-d9dba3ab0d02" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all"># 2 types de façon de faire videdico
+def videdico(d):
+		d = {}
+		
+def videdico(d):
+		for i in d:
+				def d[i]</code></pre><p id="d982cda6-ce5a-4095-a739-b4e4b5b293b8" class=""><mark class="highlight-teal">Exemple</mark></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10bdf055-a643-8066-9a07-f8af2b5bedda" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">for i in d.keys():
+		print(i)
+for i in d.values():
+		print(i)
+for i in d.items():
+		print(i,j)</code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="10bdf055-a643-808b-ab8c-c367e5109a09"><div style="font-size:1.5em"><span class="icon">🗒️</span></div><div style="width:100%"><p id="61d819de-d304-460c-ad41-a5fb74ba6e75" class="">Exercices :</p><p id="10bdf055-a643-806f-99f7-facad690edd0" class="">1)</p><ol type="a" id="10bdf055-a643-8082-aeab-e17b94be9ec5" class="numbered-list" start="1"><li>Flotte[26] = {’types’:&#x27;classique’,’etats’:0,’station’:’Coliseum’}</li></ol><ol type="a" id="10bdf055-a643-8034-8ced-ce4381f32ab0" class="numbered-list" start="2"><li>Flotte[80][’etats’] = 0</li></ol><ol type="a" id="87a1d501-70e3-42e4-831c-9dd85756b766" class="numbered-list" start="3"><li>Flotte[99][’etats&#x27;] = KeyError</li></ol><p id="d9425684-157a-4d79-8cd2-2e5c3fc256e5" class="">2)</p><ol type="a" id="10bdf055-a643-8002-9f28-c04324ab9a12" class="numbered-list" start="1"><li>‘électrique’ et ‘classique’</li></ol><ol type="a" id="10bdf055-a643-8035-a609-ec73916dc09c" class="numbered-list" start="2"><li>Si choix = ‘electrique’, renvoie la liste des vélo disponible et leur station</li></ol><p id="10bdf055-a643-809d-bc8c-fb363c9289a3" class="">      Si choix = ‘classique’, renvoie la liste des volo classique disponible et leur station</p><p id="10bdf055-a643-80c0-a6f2-f88e6329fd30" class="">3)</p><ol type="a" id="6fb4999c-561d-4435-a7c1-a1555cea8647" class="numbered-list" start="1"><li></li></ol><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10bdf055-a643-80be-b6a6-c6c02cf4540d" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">for id_velo, details in flotte.items():
+    if details[&quot;station&quot;] == &quot;Citadelle&quot; and details[&quot;etat&quot;] == 1:
+        print(id_velo)</code></pre><p id="ae9db2da-b1c4-4e94-9a65-c754ef9d8e18" class="">b.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="0b67030d-db0f-4145-b2a0-5bd3a75a6f49" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">for id_velo, details in flotte.items():
+    if details[&quot;type&quot;] == &quot;electrique&quot; and details[&quot;etat&quot;] != -1:
+        print(&quot;ID:&quot;, id_velo, &quot;Station:&quot;, details[&quot;station&quot;])</code></pre><ol type="1" id="10ddf055-a643-80ef-b042-e0b09be64c22" class="numbered-list" start="4"><li> </li></ol><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10ddf055-a643-80c6-8e91-f9f3a8bb0262" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">def nearestStation(stationsDict):
+	currentNearestName, currentNearestDistance = &quot;&quot;, distance(stationsList[&quot;Prefecture&quot;])
+	for station, position in stationsDict.items():
+		temp = distance(position)
+		if temp &lt; currentNearestDistance:
+			currentNearestName = station
+			currentNearestDistance = temp
+	return currentNearestName</code></pre><p id="10ddf055-a643-80ee-aad1-cc6b977006f4" class="">Exercice 2</p><ol type="1" id="10ddf055-a643-8098-9b22-cb5d1d16abf6" class="numbered-list" start="1"><li>Car la liaison Luchon-Muret n&#x27;existe pas.</li></ol><ol type="1" id="10ddf055-a643-804d-ad21-fc9f102faab0" class="numbered-list" start="2"><li><p id="10ddf055-a643-8034-928a-ec6a6eb75e45" class="">a. <code>liaisonJoueur2 = [[&quot;Toulouse&quot;, &quot;Castres&quot;],[&quot;Castres&quot;, &quot;Mazamet&quot;],[&quot;Toulouse&quot;, &quot;Castelnaudary&quot;],[&quot;Castelnaudary&quot;, &quot;Carcassonne&quot;],[&quot;Tarbes&quot;, &quot;St Gaudens&quot;]]</code></p><p id="10ddf055-a643-80b4-b9e6-e1fe4d3fd040" class="">b.</p></li></ol><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10ddf055-a643-80da-bd99-f8b4ea0710e9" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">DictJoueur2 = {
+&quot;Toulouse&quot;:[&quot;Castres&quot;,&quot;Castelnaudary&quot;]
+&quot;Castres&quot;:[&quot;Toulouse&quot;,&quot;Mazamet&quot;]
+&quot;Mazamet&quot;:[&quot;Castres&quot;]
+&quot;Castelnaudary&quot;:[&quot;Toulouse&quot;,&quot;Carcassonne&quot;]
+&quot;Carcassonne&quot;:[&quot;Castelnaudary&quot;]
+&quot;ST Gaudens&quot;:[&quot;Tarbes&quot;]
+&quot;Tarbes&quot;:[&quot;St Gaudens&quot;]
+}</code></pre><ol type="1" id="10ddf055-a643-8096-9d6c-f1265123908e" class="numbered-list" start="3"><li> </li></ol><p id="10ddf055-a643-8078-b67f-ef90e7341409" class="">a. <code>assert len(listeLiaisons) != 0, &quot;Liste est vide&quot;</code> </p><p id="10ddf055-a643-807c-afd4-c6ba1d7665d4" class="">b.  </p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10ddf055-a643-804d-8d03-d33629a3b959" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">liaisonsJoueur1, =[
+	[&quot;Toulouse&quot;,&quot;Muret&quot;]
+	[&quot;Toulouse&quot;,&quot;Montauban&quot;]
+	[&quot;Gaillac&quot;,&quot;St Sulpice&quot;]
+	[&quot;Muret&quot;,&quot;Paluriers&quot;]
+]</code></pre><p id="10ddf055-a643-80c9-9a36-c50e6071477a" class="">c.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10ddf055-a643-80db-8a34-d04a83fd476a" class="code"><code class="language-Python" style="white-space:pre-wrap;word-break:break-all">D = {&quot;Toulouse&quot;,&quot;Montauban&quot;}
+Ville A = &quot;Toulouse&quot;
+Ville B = &quot;Muret&quot; &quot;Montauban&quot;
+
+D ={&quot;Toulouse&quot;[&quot;Muret&quot;,&quot;Montauban&quot;]}
+&quot;Gaillac&quot;: &quot;St Sulpice&quot;
+&quot;Muret&quot;: &quot;Paluriers&quot;</code></pre><figure id="10bdf055-a643-80bf-8d74-f49baea84744"><div class="source"><a href="Structures%20de%20donne%CC%81es%209706e70361bc485595182f6cb231997b/feuille_exo_dic.pdf">https://prod-files-secure.s3.us-west-2.amazonaws.com/3cff488d-2309-4580-8492-035d56420769/eb3e97af-740d-4f5c-b8a8-acc79e306558/feuille_exo_dic.pdf</a></div></figure></div></figure><h1 id="03d91451-0872-4b69-addb-f464664ad114" class="">Structure hiérarchique </h1><h2 id="10ddf055-a643-8044-a534-d1657a047107" class="">Les arbres </h2><p id="10ddf055-a643-809a-af95-d41a04a9d3c1" class="">Les arbres sont utilisés en particulier quand on a besoin d&#x27;une hiérarchie (notion de temps, un vainqueur et un perdant, généalogie)</p><p id="10ddf055-a643-8092-aab8-f2171f2e5162" class="">
+</p><p id="10ddf055-a643-804b-97cb-d0af809b0b06" class="">ex : Tournoi de rugby </p><p id="10ddf055-a643-803b-82e5-deb21fe8ebcd" class="">16 équipe (4 poules de 4 équipes)</p><p id="10ddf055-a643-80e8-8df4-d66ee9dec045" class="">1P1 - 2P4 </p><p id="10ddf055-a643-80b4-a138-dffd963a5a3c" class="">1P2 - 2P3</p><p id="10ddf055-a643-80a9-96a7-f3eb3af433d2" class="">1P3 - 2P2</p><p id="10ddf055-a643-80db-82b5-d1e17c8b5284" class="">1P4 - 2P1  </p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10ddf055-a643-80dc-8722-c5a4ba0fafad" class="code"><code class="language-Mermaid" style="white-space:pre-wrap;word-break:break-all">---
+title: Tournois sportifs
+---
+graph TD
+  P1 --&gt; P1a
+  P2 --&gt; P1a
+  P3 --&gt; P3a
+  P4 --&gt; P3a
+  P5 --&gt; P5a
+  P6 --&gt; P5a
+  P7 --&gt; P7a
+  P8 --&gt; P7a
+  P1a --&gt; P1b
+  P3a --&gt; P1b
+  P5a --&gt; P5b
+  P7a --&gt; P5b
+  P1b --&gt; P1c
+  P5b --&gt; P1c</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10ddf055-a643-809e-97b3-f4f6c7e237c6" class="code"><code class="language-Mermaid" style="white-space:pre-wrap;word-break:break-all">---
+title: Arbre généalogique
+---
+graph TD
+  V --&gt; P
+  V --&gt; M
+  P --&gt; GP1
+  P --&gt; GM1
+  M --&gt; GP2
+  M --&gt; GM2</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10ddf055-a643-8063-9fad-fa7c06c3d9ca" class="code"><code class="language-Mermaid" style="white-space:pre-wrap;word-break:break-all">---
+title: Système de fichier Unix
+---
+graph TD
+	/ --&gt; mnt
+	/ --&gt; bin
+	/ --&gt; boot
+	/ --&gt; dev 
+	/ --&gt; home
+	/ --&gt; media
+	bin --&gt; bash
+	bin --&gt; cat
+	boot --&gt; grub
+	boot --&gt; abi
+	grub --&gt; grub.cfg
+	home --&gt; max
+	home --&gt; elsa
+	media --&gt; usb0</code></pre><p id="fd170772-f465-4a43-b585-50f46af592dd" class="">
+</p><p id="7a112f7c-70e2-43ba-ab4f-0fee12c752eb" class=""><mark class="highlight-red"><strong>Arbres binaires = Chaque noeud possède au maximum 2 enfants (we des enfants ya quoi)</strong></mark></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="ba9398c6-e648-499d-b451-823695a26ebd" class="code"><code class="language-Mermaid">graph TD;
+    A[&quot;Noeud&quot;]
+    A --&gt; B[&quot;Enfant&quot;]
+
+    </code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="49e81cc7-4272-44e6-b11b-de0e309120e1" class="code"><code class="language-Mermaid">graph TD;
+    A[&quot;Noeud&quot;]
+    A --&gt; B[&quot;Enfant gauche&quot;]
+    A --&gt; C[&quot;Enfant droit&quot;]
+    </code></pre><p id="370368d7-c876-4422-a79b-37424f2ca42f" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span><script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+	await mermaid.run({
+  		querySelector: '.language-mermaid',
+	});
+</script></body></html>
